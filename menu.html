@@ -6,6 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="../css/vue.css">
+    <style>
+        .navul {
+            width: 200px;
+            height: 1000px;
+            background-color: #ddd;
+            border: 1px dotted #457896;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        #app {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .navul {
+            padding: 10px;
+        }
+
+        .navul > li {
+            padding: 5px 0;
+            border-bottom: 1px dashed #fff;
+        }
+
+        .navul li a {
+            color: #457896;
+        }
+
+        .fade-enter-active, .fade-leave-active {
+            transition: all 1s ease;
+        }
+
+        .fade-enter, .fade-leave-to {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+
+        .fade-enter-to, .fade-leave {
+            opacity: 1;
+        }
+
+        .hide {
+            display: none;
+        }
+
+
+        a.active {
+            color: #ec6237 !important;
+        }
+
+    </style>
 </head>
 <body>
     <template id='navTemp'>
