@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/vue.css">
+</head>
+<body>
+    <template id='navTemp'>
+        <ul class="navul">
+            <li v-for="(navItem, i) in mynavData">
+                <template v-if="navItem.item">
+                    <a href="javascript: void(0)" @click="toggleShow(i)" :class="{active: indexGroup[i]}">
+                        {{ navItem.value }}
+                    </a>
+                    <transition name="fade">
+                        <ul v-if="indexGroup[i]" class="oneul">
+                            <li v-for="(one, j) in navItem.item">
+                                <a href="javascript: void(0)" @click="toggleShow(i, j)" :class="{active: indexGroup[i * 10 + j]}">{{ one }}</a>
+                            </li>
+                        </ul>
+                    </transition>
+                </template>
+                <template v-else>
+                    <a href="javascript: void(0)" @click="toggleShow(i)" :class="{active: indexGroup[i]}">{{ navItem.value }}</a>
+                </template>
+            </li>
+        </ul>
+    </template>
+
+    <div id="app">
+        <my-nav :mynav-Data="navData"></my-nav>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+Vue.component('my-nav', {
+    props: ['mynavData'],
+    template: '#navTemp',
+    data() {
+        return {
+            indexGroup: {}
+        }
+    },
+    methods: {
+        toggleShow: function(i, j) {
+            if(j != undefined) {
+                var index = i * 10 + j;
+                this.changeValue(index)
+            } else {
+                this.changeValue(i)
+            }
+        },
+        changeValue: function(k) {
+            if(this.indexGroup[k]) {
+                this.$set(this.indexGroup, k, false)
+            } else {
+                this.$set(this.indexGroup, k, true)
+            }
+        }
+    }
+})
+
+new Vue({
+    el: '#app',
+    data: {
+        navData: [
+            {name: 'desc', value: 'Biu'},
+            {name: 'job', value: 'Web', item: ['app', 'program']},
+            {name: 'person', value: 'appearance', item: ['tall', 'weight']}
+        ]
+    }
+})
+</script>
